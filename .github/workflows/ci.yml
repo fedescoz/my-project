@@ -6,33 +6,33 @@ name: Java CI with Gradle
 on:
   push:
     branches: [ master ]
-  pull_request:
+  pull_request:					       #
     branches: [ master ]
 
 jobs:
   build-java:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest                                   #gira su ubuntu
     
     steps:
     - uses: actions/checkout@v2
 
-    - name: Set up JDK 1.8
+    - name: Set up JDK 1.8					#settings dell'ambiente java
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
 
-    - name: Grant execute permission for gradlew
+    - name: Grant execute permission for gradlew		
       run: chmod +x gradlew
-
-    - name: Build with Gradle
+			
+    - name: Build with Gradle					#gradle è utilizzato per fare il build di programmi in Java
       run: ./gradlew build
 
     - name: Build and Push Docker Image
       uses: mr-smithers-excellent/docker-build-push@v4
       with:
-        image: elkoussaimi/test-ci
-        tag: v2
+        image: fedesco/finaltestdevops			#nome dell'immagine su Docker Hub
+        tag: v1						#tag a caso. L'importante è cjhe non esiste nel repository docker hub
         registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
